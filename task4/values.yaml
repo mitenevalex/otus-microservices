@@ -1,0 +1,11 @@
+global:
+  postgresql:
+    auth:
+      username: "testuser"
+      database: "otusHw4"
+      existingSecret: "db-secret"
+
+primary:
+  persistence:
+    enabled: true
+    size: 8Gi

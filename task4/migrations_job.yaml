@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrations-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: migrations-job-container
+        image: alexmitenev/orushw4migrations:1.0.16
+        env:
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: log-level
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+        command: ["dotnet", "Migrations.dll"]
+      restartPolicy: Never
